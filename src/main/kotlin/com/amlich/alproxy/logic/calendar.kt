@@ -95,12 +95,14 @@ suspend fun fetchCalendarLaunch(calendarId: Int): CalendarAndEvents? {
 
     repeat(2) {
         val res = c.receive()
-        // NULL IS NULL!!!
-        if (res is CalendarSubscribe?) {
-            subscription = res
-        } else {
-            events = res as Array<Event>?
+        if (res != null) {
+            if (res is CalendarSubscribe) {
+                subscription = res
+            } else {
+                events = res as Array<Event>
+            }
         }
+
     }
     c.close()
 
