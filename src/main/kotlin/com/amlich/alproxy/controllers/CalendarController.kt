@@ -1,6 +1,7 @@
 package com.amlich.alproxy.controllers
 
 import com.amlich.alproxy.logic.fetchCalendar
+import com.amlich.alproxy.logic.fetchCalendarLaunch
 import com.amlich.alproxy.logic.getCalendar
 import com.amlich.alproxy.models.Calendar
 import com.amlich.alproxy.models.CalendarAndEvents
@@ -23,6 +24,14 @@ class CalendarController {
     fun getCalendarAndEvents(@PathVariable(value = "calendarId") calendarId: Int): CalendarAndEvents? {
         var cal = runBlocking {
             fetchCalendar(calendarId)
+        }
+        return cal
+    }
+
+    @GetMapping("/calendar")
+    fun getCalendarAndEventsLaunch(@RequestParam(value = "calendarId") calendarId: Int): CalendarAndEvents? {
+        var cal = runBlocking {
+            fetchCalendarLaunch(calendarId)
         }
         return cal
     }
