@@ -43,9 +43,9 @@ suspend fun getCalendarSubscribe(calendarId: Int): CalendarSubscribe? {
 }
 
 suspend fun fetchCalendar(calendarId: Int): CalendarAndEvents? {
-    val cal = GlobalScope.async<Calendar?> {
+    val cal = runBlocking {
         getCalendar(calendarId)
-    }.await()
+    }
 
     if (cal == null) {
         throw ResponseStatusException(HttpStatus.NOT_FOUND)
