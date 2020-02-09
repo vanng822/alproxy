@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
@@ -18,8 +19,8 @@ class CalendarController {
 
     private val logger = Logger.getLogger(CalendarController::class.java.getName())
 
-    @GetMapping("/calendar")
-    fun getCalendarAndEvents(@RequestParam(value = "calendarId") calendarId: Int): CalendarAndEvents? {
+    @GetMapping("/calendar/{calendarId}")
+    fun getCalendarAndEvents(@PathVariable(value = "calendarId") calendarId: Int): CalendarAndEvents? {
         var cal = runBlocking {
             fetchCalendar(calendarId)
         }
