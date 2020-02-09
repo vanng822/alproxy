@@ -41,7 +41,7 @@ dependencies {
 
 	implementation("com.github.kittinunf.fuel:fuel:2.2.1")
 	implementation("com.github.kittinunf.fuel:fuel-coroutines:2.2.1")
-	implementation("com.github.kittinunf.fuel:fuel-json:2.2.1")
+	implementation("com.google.code.gson:gson:2.8.6")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
