@@ -72,7 +72,7 @@ suspend fun getCalendarEvents(calendarId: Int): Array<Event>? {
     }
 }
 
-suspend fun fetchCalendarLaunch(calendarId: Int): CalendarAndEvents? {
+suspend fun fetchCalendarEvents(calendarId: Int): CalendarAndEvents? {
     val cal = runBlocking {
         getCalendar(calendarId)
     }
@@ -106,5 +106,5 @@ suspend fun fetchCalendarLaunch(calendarId: Int): CalendarAndEvents? {
     }
     c.close()
 
-    return CalendarAndEvents(cal, events, subscription)
+    return CalendarAndEvents(cal as Calendar, events, subscription)
 }

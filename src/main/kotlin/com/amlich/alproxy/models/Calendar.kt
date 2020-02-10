@@ -2,7 +2,6 @@ package com.amlich.alproxy.models
 
 import com.github.kittinunf.fuel.core.ResponseDeserializable
 import com.google.gson.Gson
-import java.util.concurrent.Flow
 
 data class CalendarResult(val result: Calendar)
 
@@ -13,7 +12,7 @@ data class Calendar(val id: Int, val ownerId: Int, val name: String, val descrip
     }
 }
 
-data class CalendarAndEvents(val calendar: Calendar?, val events: Array<Event>?, val subscription: CalendarSubscribe?)
+data class CalendarAndEvents(val calendar: Calendar, val events: Array<Event>?, val subscription: CalendarSubscribe?)
 
 data class CalendarSubscribeResult(val result: CalendarSubscribe)
 
