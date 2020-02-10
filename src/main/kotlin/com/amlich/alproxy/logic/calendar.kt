@@ -95,16 +95,12 @@ suspend fun fetchCalendarEvents(calendarId: Int): CalendarAndEvents? {
 
     repeat(2) {
         val res = c.receive()
-        if (res != null) {
-            if (res is CalendarSubscribe) {
-                subscription = res
-            } else {
-                events = res as Array<Event>
-            }
+        when(res) {
+            is CalendarSubscribe -> subscription = res
+            is Array<*> -> events = res as Array<Event>
         }
-
     }
     c.close()
 
-    return CalendarAndEvents(cal as Calendar, events, subscription)
+    return CalendarAndEvents(cal, events, subscription)
 }
