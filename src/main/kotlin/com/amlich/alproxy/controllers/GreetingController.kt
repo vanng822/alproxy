@@ -10,7 +10,7 @@ import io.vertx.core.Vertx
 import io.vertx.redis.RedisClient
 import io.vertx.redis.RedisOptions
 
-import java.util.logging.Logger;
+import java.util.logging.Logger
 import kotlinx.coroutines.*
 
 fun createRedisClient(): RedisClient {
@@ -48,7 +48,7 @@ class GreetingController {
 
     private val counter = AtomicLong()
 
-    private val logger = Logger.getLogger(GreetingController::class.java.getName())
+    private val logger = Logger.getLogger(GreetingController::class.java.name)
 
     @GetMapping("/greeting")
     fun greeting(@RequestParam(value = "name") iName: String): Greeting {
