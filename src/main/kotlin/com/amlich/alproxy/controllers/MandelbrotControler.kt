@@ -15,7 +15,7 @@ class MandelbrotControler {
 
     @GetMapping("/mandelbrot")
     fun getCalendarAndEvents(): String {
-        var mandelbrot = runBlocking {
+        val mandelbrot = runBlocking {
             generateMandelbrot()
         }
         return mandelbrot

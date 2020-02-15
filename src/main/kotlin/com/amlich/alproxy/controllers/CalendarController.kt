@@ -18,7 +18,7 @@ class CalendarController {
 
     @GetMapping("/calendar/{calendarId}")
     fun getCalendarAndEvents(@PathVariable(value = "calendarId") calendarId: Int): CalendarAndEvents? {
-        var cal = runBlocking {
+        val cal = runBlocking {
             fetchCalendar(calendarId)
         }
         return cal
@@ -26,7 +26,7 @@ class CalendarController {
 
     @GetMapping("/calendar/{calendarId}/events")
     fun getCalendarAndEventsLaunch(@PathVariable(value = "calendarId") calendarId: Int): CalendarAndEvents? {
-        var cal = runBlocking {
+        val cal = runBlocking {
             fetchCalendarEvents(calendarId)
         }
         return cal
