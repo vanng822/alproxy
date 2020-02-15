@@ -36,7 +36,7 @@ suspend fun generateMandelbrot(): String {
     var launchResult = ""
 
     val launchTime = measureTimeMillis {
-        launchResult += generateMandelbrotLaunch() + "</p>"
+        launchResult += generateMandelbrotLaunch()
     }
 
     var asyncResult = ""
@@ -44,8 +44,10 @@ suspend fun generateMandelbrot(): String {
         asyncResult += generateMandelbrotAsync()
     }
 
-    return "<div><div>Launch: ${launchTime}</div><pre>${launchResult}</pre></div>" +
-            "<div><div>Async: ${asyncTime}</div><pre>${asyncResult}</pre></div>"
+    return "<div style='text-align: center;'>" +
+            "<div>Launch: ${launchTime}</div><pre>${launchResult}</pre></div>" +
+            "<div style='text-align: center;'>" +
+            "<div>Async: ${asyncTime}</div><pre>${asyncResult}</pre></div>"
 }
 
 suspend fun generateMandelbrotAsync(): String {
@@ -65,7 +67,7 @@ suspend fun generateMandelbrotAsync(): String {
     }
     val results = jobs.awaitAll()
 
-    var output = "<pre>"
+    var output = ""
     results.forEach {
         output += "\n"
         it.results.forEach { i ->
@@ -76,7 +78,6 @@ suspend fun generateMandelbrotAsync(): String {
             }
         }
     }
-    output += "</pre>"
     return output
 }
 
@@ -109,7 +110,7 @@ suspend fun generateMandelbrotLaunch(): String {
 
     c.close()
 
-    var output = "<pre>"
+    var output = ""
     results.forEach {
         output += "\n"
         it!!.results.forEach { i ->
@@ -120,7 +121,6 @@ suspend fun generateMandelbrotLaunch(): String {
             }
         }
     }
-    output += "</pre>"
 
     return output
 }
