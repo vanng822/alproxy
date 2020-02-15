@@ -1,6 +1,8 @@
 package com.amlich.alproxy.logic
 
 import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.Channel
+import kotlin.system.measureTimeMillis
 
 const val BAILOUT = 16
 const val MAX_ITERATIONS = 1600
@@ -27,18 +29,35 @@ fun iternator(x: Double, y: Double): Int {
     }
 }
 
-data class InteratorResult(val results: MutableList<Int>)
+data class IteratorResult(val results: MutableList<Int>)
 
 suspend fun generateMandelbrot(): String {
-    val jobs = mutableListOf<Deferred<InteratorResult>>()
+
+    var launchResult = ""
+
+    val launchTime = measureTimeMillis {
+        launchResult += generateMandelbrotLaunch() + "</p>"
+    }
+
+    var asyncResult = ""
+    val asyncTime = measureTimeMillis {
+        asyncResult += generateMandelbrotAsync()
+    }
+
+    return "<div><div>Launch: ${launchTime}</div><pre>${launchResult}</pre></div>" +
+            "<div><div>Async: ${asyncTime}</div><pre>${asyncResult}</pre></div>"
+}
+
+suspend fun generateMandelbrotAsync(): String {
+    val jobs = mutableListOf<Deferred<IteratorResult>>()
     for (y in -39 until 39) {
-        val job = fun(y:Double): Deferred<InteratorResult> {
-            return GlobalScope.async<InteratorResult> {
+        val job = fun(y: Double): Deferred<IteratorResult> {
+            return GlobalScope.async<IteratorResult> {
                 val results = mutableListOf<Int>()
                 for (x in -39 until 39) {
-                    results.add(iternator(x.toDouble()/40.0, y/40.0))
+                    results.add(iternator(x.toDouble() / 40.0, y / 40.0))
                 }
-                InteratorResult(results)
+                IteratorResult(results)
             }
         }(y.toDouble())
 
@@ -58,5 +77,50 @@ suspend fun generateMandelbrot(): String {
         }
     }
     output += "</pre>"
+    return output
+}
+
+data class IteratorResultLaunch(val results: MutableList<Int>, val index: Int)
+
+suspend fun generateMandelbrotLaunch(): String {
+    val c = Channel<IteratorResultLaunch>()
+    var index = 0
+    for (y in -39 until 39) {
+        // weird things, unused t but compile
+        // refuse to compile without t
+        val t = fun(y: Double, index: Int) {
+            GlobalScope.launch {
+                val results = mutableListOf<Int>()
+                for (x in -39 until 39) {
+                    results.add(iternator(x.toDouble() / 40.0, y / 40.0))
+                }
+                c.send(IteratorResultLaunch(results, index))
+            }
+        }(y.toDouble(), index)
+        index++
+    }
+
+    val results = arrayOfNulls<IteratorResultLaunch>(index)
+
+    repeat(index) {
+        val result = c.receive()
+        results.set(result.index, result)
+    }
+
+    c.close()
+
+    var output = "<pre>"
+    results.forEach {
+        output += "\n"
+        it!!.results.forEach { i ->
+            if (i == 0) {
+                output += "*"
+            } else {
+                output += " "
+            }
+        }
+    }
+    output += "</pre>"
+
     return output
 }
