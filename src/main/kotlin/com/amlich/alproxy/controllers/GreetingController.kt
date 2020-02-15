@@ -1,17 +1,17 @@
 package com.amlich.alproxy.controllers
 
 import com.amlich.alproxy.models.Greeting
+import io.vertx.core.Vertx
+import io.vertx.redis.RedisClient
+import io.vertx.redis.RedisOptions
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.runBlocking
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import java.util.concurrent.atomic.AtomicLong
-
-import io.vertx.core.Vertx
-import io.vertx.redis.RedisClient
-import io.vertx.redis.RedisOptions
-
 import java.util.logging.Logger
-import kotlinx.coroutines.*
 
 fun createRedisClient(): RedisClient {
     // Create the redis client
