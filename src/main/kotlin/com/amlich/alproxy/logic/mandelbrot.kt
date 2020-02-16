@@ -89,15 +89,15 @@ suspend fun generateMandelbrotLaunch(): String {
     for (y in -39 until 39) {
         // weird things, unused t but compile
         // refuse to compile without t
-        val t = fun(y: Double, index: Int) {
+        val t = fun(y: Int, index: Int) {
             GlobalScope.launch {
                 val results = mutableListOf<Int>()
                 for (x in -39 until 39) {
-                    results.add(iternator(x.toDouble() / 40.0, y / 40.0))
+                    results.add(iternator(x / 40.0, y / 40.0))
                 }
                 c.send(IteratorResultLaunch(results, index))
             }
-        }(y.toDouble(), index)
+        }(y, index)
         index++
     }
 
