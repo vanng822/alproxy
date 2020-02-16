@@ -15,7 +15,7 @@ class MandelbrotControler {
     private val logger = Logger.getLogger(MandelbrotControler::class.java.name)
 
     @GetMapping("/mandelbrot")
-    fun getCalendarAndEvents(): String {
+    fun mandelbrot(): String {
         val mandelbrot = runBlocking {
             // Which keyword before fun can cause that function will be exported
             // all except private???
