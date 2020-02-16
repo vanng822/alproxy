@@ -89,7 +89,7 @@ suspend fun generateMandelbrotAsync(): String {
 
 data class IteratorResultLaunch(val results: MutableList<Int>, val index: Int)
 
-suspend fun generateMandelbrotLaunch(): String {
+private suspend fun generateMandelbrotLaunch(): String {
     val c = Channel<IteratorResultLaunch>()
     var index = 0
     for (y in -39 until 39) {
