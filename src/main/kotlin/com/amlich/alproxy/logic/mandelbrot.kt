@@ -56,10 +56,12 @@ suspend fun generateMandelbrot(): String {
             "<div>Async: ${asyncTime}</div><pre>${asyncResult}</pre></div>"
 }
 
+typealias DeferredIteratorResult = Deferred<IteratorResult>
+
 suspend fun generateMandelbrotAsync(): String {
-    val jobs = mutableListOf<Deferred<IteratorResult>>()
+    val jobs = mutableListOf<DeferredIteratorResult>()
     for (y in -39 until 39) {
-        val job = fun(y: Double): Deferred<IteratorResult> {
+        val job = fun(y: Double): DeferredIteratorResult {
             return GlobalScope.async<IteratorResult> {
                 val results = mutableListOf<Int>()
                 for (x in -39 until 39) {
