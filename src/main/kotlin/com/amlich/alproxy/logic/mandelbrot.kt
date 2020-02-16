@@ -71,7 +71,7 @@ suspend fun generateMandelbrotAsync(): String {
 
         jobs.add(job)
     }
-    val results = jobs.awaitAll()
+    val results: List<IteratorResult> = jobs.awaitAll()
 
     var output = ""
     results.forEach {
@@ -107,10 +107,10 @@ private suspend fun generateMandelbrotLaunch(): String {
         index++
     }
 
-    val results = arrayOfNulls<IteratorResultLaunch>(index)
+    val results: Array<IteratorResultLaunch?> = arrayOfNulls<IteratorResultLaunch>(index)
 
     repeat(index) {
-        val result = c.receive()
+        val result:IteratorResultLaunch = c.receive()
         results.set(result.index, result)
     }
 
