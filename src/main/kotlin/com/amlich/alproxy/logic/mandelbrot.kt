@@ -39,10 +39,11 @@ suspend fun generateMandelbrot(): String {
         launchResult += generateMandelbrotLaunch()
     }
 
+    // traditional way of calling measureTimeMillis
     var asyncResult = ""
-    val asyncTime = measureTimeMillis {
+    val asyncTime = measureTimeMillis({
         asyncResult += generateMandelbrotAsync()
-    }
+    })
 
     return "<div style='text-align: center;'>" +
             "<div>Launch: ${launchTime}</div><pre>${launchResult}</pre></div>" +
