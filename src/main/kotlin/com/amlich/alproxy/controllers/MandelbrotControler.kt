@@ -12,7 +12,7 @@ import java.util.logging.Logger
 @RestController
 class MandelbrotControler {
 
-    private val logger = Logger.getLogger(CalendarController::class.java.name)
+    private val logger = Logger.getLogger(MandelbrotControler::class.java.name)
 
     @GetMapping("/mandelbrot")
     fun getCalendarAndEvents(): String {
