@@ -60,6 +60,6 @@ class GreetingController {
                 counter.incrementAndGet()
             }
         }
-        return Greeting(id, "Hello, $iName")
+        return Greeting(id, iName)
     }
 }
