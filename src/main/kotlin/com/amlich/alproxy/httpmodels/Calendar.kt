@@ -1,7 +1,8 @@
-package com.amlich.alproxy.models
+package com.amlich.alproxy.httpmodels
 
 import com.github.kittinunf.fuel.core.ResponseDeserializable
 import com.google.gson.Gson
+
 
 data class CalendarResult(val result: Calendar)
 

@@ -1,4 +1,4 @@
-package com.amlich.alproxy.models
+package com.amlich.alproxy.httpmodels
 
 data class Greeting(val id: Long, val name: String) {
      val say: String

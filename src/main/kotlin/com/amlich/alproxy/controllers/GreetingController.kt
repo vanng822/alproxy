@@ -1,6 +1,6 @@
 package com.amlich.alproxy.controllers
 
-import com.amlich.alproxy.models.Greeting
+import com.amlich.alproxy.httpmodels.Greeting
 import io.vertx.core.Vertx
 import io.vertx.redis.RedisClient
 import io.vertx.redis.RedisOptions

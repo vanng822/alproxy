@@ -3,7 +3,7 @@ package com.amlich.alproxy.controllers
 
 import com.amlich.alproxy.logic.fetchCalendar
 import com.amlich.alproxy.logic.fetchCalendarEvents
-import com.amlich.alproxy.models.CalendarAndEvents
+import com.amlich.alproxy.httpmodels.CalendarAndEvents
 import kotlinx.coroutines.runBlocking
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable

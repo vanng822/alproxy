@@ -1,7 +1,7 @@
 package com.amlich.alproxy.logic
 
 
-import com.amlich.alproxy.models.*
+import com.amlich.alproxy.httpmodels.*
 import kotlinx.coroutines.*
 
 import com.github.kittinunf.fuel.coroutines.awaitObjectResult
