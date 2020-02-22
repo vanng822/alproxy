@@ -2,12 +2,15 @@ package com.amlich.alproxy.logic
 
 
 import com.amlich.alproxy.httpmodels.*
+import com.amlich.alproxy.models.CalendarRepository
 import kotlinx.coroutines.*
 
 import com.github.kittinunf.fuel.coroutines.awaitObjectResult
 import org.springframework.http.HttpStatus
 import org.springframework.web.server.ResponseStatusException
 import kotlinx.coroutines.channels.Channel
+
+import com.amlich.alproxy.models.Calendar as DbCalendar
 
 suspend fun getCalendar(calendarId: Int) : Calendar? {
     try {
