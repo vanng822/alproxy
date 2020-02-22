@@ -5,9 +5,6 @@ import com.amlich.alproxy.httpmodels.Calendar
 import com.amlich.alproxy.httpmodels.CalendarAndEvents
 import com.amlich.alproxy.logic.fetchCalendar
 import com.amlich.alproxy.logic.fetchCalendarEvents
-import com.amlich.alproxy.logic.getCalendarSubscribe
-import com.amlich.alproxy.models.Calendar as DbCalendar
-import com.amlich.alproxy.models.Event as DbEvent
 import com.amlich.alproxy.models.CalendarRepository
 import com.amlich.alproxy.models.EventRepository
 import kotlinx.coroutines.runBlocking
@@ -16,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RestController
 import java.util.logging.Logger
+import com.amlich.alproxy.models.Calendar as DbCalendar
+import com.amlich.alproxy.models.Event as DbEvent
 
 
 @RestController
@@ -49,10 +48,6 @@ class CalendarController {
             if (cal.events != null) {
                 cal.events.forEach {
                     eventRepo!!.save(DbEvent(it.id, calendar.id, it.title, it.description))
-                    runBlocking {
-                        getCalendarSubscribe(1)
-                    }
-
                 }
             }
         }

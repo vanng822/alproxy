@@ -34,7 +34,7 @@ suspend fun getEvents(calendarId: Int) : Array<Event>? {
     }
 }
 
-internal suspend fun getCalendarSubscribe(calendarId: Int): CalendarSubscribe? {
+suspend fun getCalendarSubscribe(calendarId: Int): CalendarSubscribe? {
     try {
         val path = "/api/web/v1/calendar/${calendarId}/subscribe"
         val req = amlichGet(path, null)
