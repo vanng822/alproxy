@@ -5,6 +5,7 @@ import com.amlich.alproxy.httpmodels.Calendar
 import com.amlich.alproxy.httpmodels.CalendarAndEvents
 import com.amlich.alproxy.logic.fetchCalendar
 import com.amlich.alproxy.logic.fetchCalendarEvents
+import com.amlich.alproxy.logic.getCalendarSubscribe
 import com.amlich.alproxy.models.Calendar as DbCalendar
 import com.amlich.alproxy.models.Event as DbEvent
 import com.amlich.alproxy.models.CalendarRepository
@@ -48,6 +49,10 @@ class CalendarController {
             if (cal.events != null) {
                 cal.events.forEach {
                     eventRepo!!.save(DbEvent(it.id, calendar.id, it.title, it.description))
+                    runBlocking {
+                        getCalendarSubscribe(1)
+                    }
+
                 }
             }
         }

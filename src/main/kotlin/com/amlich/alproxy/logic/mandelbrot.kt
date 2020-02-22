@@ -31,12 +31,22 @@ fun iternator(x: Double, y: Double): Int {
 
 data class IteratorResult(val results: MutableList<Int>)
 
-inline fun timingStringGeneration(block: () -> String ): Pair<Long, String> {
+inline fun timingStringGenerationPair(block: () -> String ): Pair<Long, String> {
     var result = ""
     val t = measureTimeMillis {
         result += block()
     }
     return Pair(t, result)
+}
+
+data class TimingResult(val time: Long, val result: String)
+
+inline fun timingStringGeneration(block: () -> String ): TimingResult {
+    var result = ""
+    val t = measureTimeMillis {
+        result += block()
+    }
+    return TimingResult(t, result)
 }
 
 suspend fun generateMandelbrot(): String {
@@ -46,7 +56,7 @@ suspend fun generateMandelbrot(): String {
     }
 
     // traditional way of calling timingStringGeneration
-    val (asyncTime, asyncResult) = timingStringGeneration({
+    val (asyncTime, asyncResult) = timingStringGenerationPair({
         generateMandelbrotAsync()
     })
 
