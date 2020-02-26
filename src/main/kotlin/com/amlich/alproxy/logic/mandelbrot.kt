@@ -49,21 +49,26 @@ inline fun timingStringGeneration(block: () -> String ): TimingResult {
     return TimingResult(t, result)
 }
 
+infix fun TimingResult.timingDiff(other: TimingResult): Long {
+    return time - other.time
+}
+
 suspend fun generateMandelbrot(): String {
 
-    val (launchTime, launchResult) = timingStringGeneration {
+    val launchResult = timingStringGeneration {
         generateMandelbrotLaunch()
     }
 
     // traditional way of calling timingStringGeneration
-    val (asyncTime, asyncResult) = timingStringGenerationPair({
+    val asyncResult = timingStringGeneration({
         generateMandelbrotAsync()
     })
 
     return "<div style='text-align: center;'>" +
-            "<div>Launch: ${launchTime}</div><pre>${launchResult}</pre></div>" +
+            "<div>async.time - launch.time = ${asyncResult timingDiff launchResult} </div>" +
+            "<div>Launch: ${launchResult.time}</div><pre>${launchResult.result}</pre></div>" +
             "<div style='text-align: center;'>" +
-            "<div>Async: ${asyncTime}</div><pre>${asyncResult}</pre></div>"
+            "<div>Async: ${asyncResult.time}</div><pre>${asyncResult.result}</pre></div>"
 }
 
 typealias DeferredIteratorResult = Deferred<IteratorResult>
