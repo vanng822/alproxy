@@ -49,7 +49,7 @@ inline fun timingStringGeneration(block: () -> String ): TimingResult {
     return TimingResult(t, result)
 }
 
-infix fun TimingResult.timingDiff(other: TimingResult): Long {
+infix fun TimingResult.minus(other: TimingResult): Long {
     return time - other.time
 }
 
@@ -65,7 +65,7 @@ suspend fun generateMandelbrot(): String {
     })
 
     return "<div style='text-align: center;'>" +
-            "<div>async.time - launch.time = ${asyncResult timingDiff launchResult} </div>" +
+            "<div>async.time - launch.time = ${asyncResult minus launchResult} </div>" +
             "<div>Launch: ${launchResult.time}</div><pre>${launchResult.result}</pre></div>" +
             "<div style='text-align: center;'>" +
             "<div>Async: ${asyncResult.time}</div><pre>${asyncResult.result}</pre></div>"
