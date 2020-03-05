@@ -14,8 +14,7 @@ import com.amlich.alproxy.models.Calendar as DbCalendar
 
 suspend fun getCalendar(calendarId: Int) : Calendar? {
     try {
-        val path = "/api/web/v1/calendar/${calendarId}"
-        val req = Amlich.get(path, null)
+        val req = Amlich.getCalendar(calendarId)
         val res = req.awaitObjectResult(Calendar.Deserializer())
         return res.get()
     } catch (exc: Exception) {
@@ -25,8 +24,7 @@ suspend fun getCalendar(calendarId: Int) : Calendar? {
 
 suspend fun getEvents(calendarId: Int) : Array<Event>? {
     try {
-        val path = "/api/web/v1/event"
-        val req = Amlich.get(path, listOf("calendarId" to calendarId))
+        val req = Amlich.getEvents(calendarId)
         val res = req.awaitObjectResult(CalendarEventDeserializer())
         return res.get()
     } catch (exc: Exception) {
@@ -36,8 +34,7 @@ suspend fun getEvents(calendarId: Int) : Array<Event>? {
 
 suspend fun getCalendarSubscribe(calendarId: Int): CalendarSubscribe? {
     try {
-        val path = "/api/web/v1/calendar/${calendarId}/subscribe"
-        val req = Amlich.get(path, null)
+        val req = Amlich.getCalendarSubscribe(calendarId)
         val res = req.awaitObjectResult(CalendarSubscribe.Deserializer())
         return res.get()
     } catch (exc: Exception) {
@@ -66,8 +63,7 @@ suspend fun fetchCalendar(calendarId: Int): CalendarAndEvents? {
 
 suspend fun getCalendarEvents(calendarId: Int): Array<Event>? {
     try {
-        val path = "/api/web/v1/calendar/${calendarId}/events"
-        val req = Amlich.get(path, null)
+        val req = Amlich.getCalendarEvents(calendarId)
         val res = req.awaitObjectResult(CalendarEventDeserializer())
         return res.get()
     } catch (exc: Exception) {
