@@ -22,12 +22,12 @@ class Amlich {
 
         suspend fun getCalendar(calendarId: Int): Request {
             val path = "/api/web/v1/calendar/${calendarId}"
-            return this.get(path, null)
+            return get(path, null)
         }
 
         suspend fun getEvents(calendarId: Int): Request {
             val path = "/api/web/v1/event"
-            return this.get(path, listOf("calendarId" to calendarId))
+            return get(path, listOf("calendarId" to calendarId))
         }
 
         suspend fun getCalendarSubscribe(calendarId: Int): Request {
