@@ -39,7 +39,13 @@ inline fun timingStringGenerationPair(block: () -> String ): Pair<Long, String> 
     return Pair(t, result)
 }
 
-data class TimingResult(val time: Long, val result: String)
+data class TimingResult(val time: Long, val result: String) {
+    infix fun minus(other: TimingResult): Long {
+        return time - other.time
+    }
+
+    operator fun plus(other: TimingResult) = time + other.time
+}
 
 inline fun timingStringGeneration(block: () -> String ): TimingResult {
     var result = ""
@@ -49,13 +55,6 @@ inline fun timingStringGeneration(block: () -> String ): TimingResult {
     return TimingResult(t, result)
 }
 
-infix fun TimingResult.minus(other: TimingResult): Long {
-    return time - other.time
-}
-
-operator fun TimingResult.plus(other: TimingResult): Long {
-    return time + other.time
-}
 
 suspend fun generateMandelbrot(): String {
 
