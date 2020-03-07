@@ -53,6 +53,10 @@ infix fun TimingResult.minus(other: TimingResult): Long {
     return time - other.time
 }
 
+operator fun TimingResult.plus(other: TimingResult): Long {
+    return time + other.time
+}
+
 suspend fun generateMandelbrot(): String {
 
     val launchResult = timingStringGeneration {
@@ -68,7 +72,8 @@ suspend fun generateMandelbrot(): String {
             "<div>async.time - launch.time = ${asyncResult minus launchResult} </div>" +
             "<div>Launch: ${launchResult.time}</div><pre>${launchResult.result}</pre></div>" +
             "<div style='text-align: center;'>" +
-            "<div>Async: ${asyncResult.time}</div><pre>${asyncResult.result}</pre></div>"
+            "<div>Async: ${asyncResult.time}</div><pre>${asyncResult.result}</pre></div>" +
+            "<div>launch.time + async.time = ${asyncResult + launchResult} </div>"
 }
 
 typealias DeferredIteratorResult = Deferred<IteratorResult>
